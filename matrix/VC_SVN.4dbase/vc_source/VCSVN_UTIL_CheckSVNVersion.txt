@@ -1,0 +1,24 @@
+﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+C_TEXT($1;$requiredVersion_t)
+
+C_BOOLEAN($0;$versionOK_t)
+
+C_TEXT($action_t;$output_t)
+C_LONGINT($error_l)
+
+$requiredVersion_t:=$1
+
+$requiredVersion_t:="@"+$requiredVersion_t+"@"
+$action_t:="help"
+
+$output_t:=VCSVN_UTIL_ExecSVNCommand ($action_t)
+
+$error_l:=VCSVN_UTIL_CheckError ($action_t;$output_t)
+
+If ($error_l=0)
+If ($output_t=$requiredVersion_t)
+$versionOK_t:=True
+End if 
+End if 
+
+$0:=$versionOK_t

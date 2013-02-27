@@ -1,0 +1,14 @@
+﻿//%attributes = {"lang":"en"} comment added and reserved by 4D.
+C_LONGINT($formEvent_l)
+
+C_BOOLEAN(VCSVN_CONFIG_Cancelled_f)
+C_LONGINT(VCSVN_CONFIG_bOK_l)
+
+$formEvent_l:=Form event
+Case of 
+: ($formEvent_l=On Load )
+VCSVN_CONFIG_Cancelled_f:=False
+
+OBJECT SET ENABLED(VCSVN_CONFIG_bOK_l;False)
+
+End case 

@@ -1,0 +1,54 @@
+﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+// --[HEADERSTART]-------------------------------------
+// User name (OS): Joshua Fletcher
+// Date and time: 03/16/09, 17:07:07
+// ----------------------------------------------------
+// Description:
+//   Error message retreival for error handling module.
+//
+// --[HEADEREND]---------------------------------------
+C_LONGINT($1;$errorCode_l)
+
+C_TEXT($0;$errorMessage_t)
+
+C_TEXT($nullMessage_t)
+
+$errorCode_l:=$1
+
+$nullMessage_t:="Invalid error code."
+
+Case of 
+// *****************
+//   -19400-19499 - Global
+// *****************
+: ($errorCode_l=<>ERR_Unknown_l)
+$errorMessage_t:="Unknown error."
+: ($errorCode_l=<>ERR_4D_l)
+$errorMessage_t:="Internal 4D Error."
+
+
+// *****************
+//   -18200-18299 - VCSVN_
+// *****************
+: ($errorCode_l=<>ERR_VCSVN_NotEnabled_l)
+$errorMessage_t:="The component is not enabled."
+
+
+// *****************
+//   -18100-18199 - VCSVN_UTIL_
+// *****************
+: ($errorCode_l=<>ERR_VCSVNUTIL_AddFileNotFound_l)
+$errorMessage_t:="Could not find file for 'svn add'."
+: ($errorCode_l=<>ERR_VCSVNUTIL_DelFileNotFound_l)
+$errorMessage_t:="Could not find file for 'svn delete'."
+: ($errorCode_l=<>ERR_VCSVNUTIL_NotInWorkspace_l)
+$errorMessage_t:="The file/folder is not in the workspace."
+: ($errorCode_l=<>ERR_VCSVNUTIL_SVNNotFound_l)
+$errorMessage_t:="Unable to locate 'svn' command."
+
+
+Else 
+$errorMessage_t:=$nullMessage_t
+End case 
+
+$0:=$errorMessage_t

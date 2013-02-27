@@ -1,0 +1,55 @@
+﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+C_TEXT($1;$subcommand_t)
+C_TEXT($2;$output_t)
+C_TEXT($3;$pattern_t)
+
+
+C_LONGINT($0;$error_l)
+
+
+$subcommand_t:=$1
+$output_t:=$2
+
+If (Count parameters>=3)
+$pattern_t:=$3// Not used, but could be used for custom error detection by the caller.
+End if 
+
+
+Case of 
+
+: ($subcommand_t="add")
+
+Case of 
+: ($output_t="@ not found@")
+$error_l:=<>ERR_VCSVNUTIL_AddFileNotFound_l
+End case 
+
+
+: ($subcommand_t="delete")
+
+Case of 
+: ($output_t="@ does not exist@")
+$error_l:=<>ERR_VCSVNUTIL_DelFileNotFound_l
+End case 
+
+
+: ($subcommand_t="info")
+
+Case of 
+: ($output_t="@Repository UUID:@")
+$error_l:=0
+: ($output_t="@The node @ was not found@")
+$error_l:=<>ERR_VCSVNUTIL_NotInWorkspace_l
+End case 
+
+
+: ($subcommand_t="help")
+
+If ($output_t="@command not found@")
+$error_l:=<>ERR_VCSVNUTIL_SVNNotFound_l
+End if 
+
+
+End case 
+
+$0:=$error_l

@@ -1,0 +1,11 @@
+﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+//  Test to see if svn command line tools are installed.
+C_TEXT($1;$pathToSVN_t)
+
+C_BOOLEAN($0;$svnInstalled_f)
+
+$pathToSVN_t:=$1
+
+$svnInstalled_f:=UTIL_LEP_DoesProgramExist ($pathToSVN_t)
+
+$0:=$svnInstalled_f

@@ -1,0 +1,51 @@
+﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+// --[HEADERSTART]-------------------------------------
+// User name (OS): Joshua Fletcher
+// Date and time: 06/16/11, 18:12:04
+// ----------------------------------------------------
+// Description:
+//   Error module startup code.
+//
+//   See UTIL_ERR_GetErrorMessage for error descriptions.
+// --[HEADEREND]---------------------------------------
+
+UTIL_ERR_HandlerPrep 
+
+// This can be used to optionally track the method that caused an error.
+C_TEXT(UTIL_ERR_ErrorMethod_t)
+UTIL_ERR_ErrorMethod_t:=""
+
+// *****************
+// Error blocks already in use:
+//
+//   (I recommend reserving blocks of 100 for each module just to have a safe buffer)
+//
+//   -18100-18199 - VCSVN_UTIL_
+//   -18200-18299 - VCSVN_
+//   -19400-19499 - Global
+// *****************
+
+
+// *****************
+//   -19400-19499 - Global
+// *****************
+C_LONGINT(<>ERR_Unknown_l)
+C_LONGINT(<>ERR_4D_l)
+
+<>ERR_Unknown_l:=-19400
+<>ERR_4D_l:=-19401
+
+// *****************
+//   -18200-18299 - VCSVN_
+// *****************
+C_LONGINT(<>ERR_VCSVN_NotEnabled_l)
+
+<>ERR_VCSVN_NotEnabled_l:=-18200
+
+// *****************
+//   -18100-18199 - VCSVN_UTIL_
+// *****************
+<>ERR_VCSVNUTIL_AddFileNotFound_l:=-18100
+<>ERR_VCSVNUTIL_DelFileNotFound_l:=-18101
+<>ERR_VCSVNUTIL_NotInWorkspace_l:=-18102
+<>ERR_VCSVNUTIL_SVNNotFound_l:=-18103

@@ -1,0 +1,43 @@
+﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+C_TEXT($1;$subcommand_t)
+C_TEXT($2;$path_t)
+
+C_TEXT($0;$output_t)
+
+C_TEXT($command_t)
+C_LONGINT($params_l)
+
+C_BLOB($inputStream_b;$outputStream_b;$errorStream_b)
+C_TEXT($inputStream_t;$outputStream_t;$errorStream_t)
+
+$command_t:=<>VCSVN_PathToSVN_t
+
+$params_l:=Count parameters
+
+If ($params_l>=1)
+$subcommand_t:=$1
+$command_t:=$command_t+" "+$subcommand_t
+End if 
+
+If ($params_l>=2)
+$path_t:=$2
+If (UTIL_IsMac )
+$path_t:=Convert path system to POSIX($path_t)
+End if 
+$command_t:=$command_t+" \""+$path_t+"\""
+End if 
+
+SET ENVIRONMENT VARIABLE("_4D_OPTION_HIDE_CONSOLE";"true")
+LAUNCH EXTERNAL PROCESS($command_t;$inputStream_b;$outputStream_b;$errorStream_b)
+
+$inputStream_t:=Convert to text($inputStream_b;"UTF-8")
+$outputStream_t:=Convert to text($outputStream_b;"UTF-8")
+$errorStream_t:=Convert to text($errorStream_b;"UTF-8")
+
+If ($errorStream_t#"")
+$output_t:=$errorStream_t
+Else 
+$output_t:=$outputStream_t
+End if 
+
+$0:=$output_t

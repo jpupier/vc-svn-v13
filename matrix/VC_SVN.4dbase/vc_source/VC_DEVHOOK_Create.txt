@@ -1,0 +1,53 @@
+﻿//%attributes = {"lang":"en","invisible":true,"shared":true} comment added and reserved by 4D.
+// --[HEADERSTART]-------------------------------------
+// User name (OS): Joshua Fletcher
+// Date and time: 10/15/12, 18:03:28
+// ----------------------------------------------------
+// Description:
+//   Handle "create" event from VC_Framework component.
+//
+//   This means VC_Framework detected a new method and
+//   wants to save it.
+// --[HEADEREND]---------------------------------------
+C_TEXT($1;$filePath_t)
+
+C_BOOLEAN($0;$actionOk_f)
+
+C_TEXT($action_t;$output_t)
+C_LONGINT($error_l)
+C_TIME($docref_h)
+
+$filePath_t:=$1
+
+VCSVN_Startup 
+
+If (<>VCSVN_Enabled_f)
+$action_t:="add"
+
+// Make sure any necessary folders are also added to SVN.
+$error_l:=VCSVN_UTIL_CreateFolders (UTIL_FILE_GetParent ($filePath_t))
+
+If ($error_l=0)
+
+// SVN requires that the file exist for an "add" action so I'll create a blank file.
+$docref_h:=Create document($filePath_t)
+If (OK=1)
+SEND PACKET($docref_h;"Placeholder created by "+<>VCSVN_ComponentName_t)
+CLOSE DOCUMENT($docref_h)
+End if 
+
+$output_t:=VCSVN_UTIL_ExecSVNCommand ($action_t;$filePath_t)
+$error_l:=VCSVN_UTIL_CheckError ($action_t;$output_t)
+End if 
+
+Else 
+$error_l:=<>ERR_VCSVN_NotEnabled_l
+End if 
+
+If ($error_l=0)
+$actionOk_f:=True
+Else 
+UTIL_ERR_HandleError ($error_l;<>VCSVN_ComponentName_t;Current method name)
+End if 
+
+$0:=$actionOk_f

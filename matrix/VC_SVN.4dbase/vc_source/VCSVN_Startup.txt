@@ -1,0 +1,32 @@
+﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+C_TEXT(<>VCSVN_ComponentName_t;<>VCSVN_PathToSVN_t)
+C_BOOLEAN(<>VCSVN_Enabled_f;<>VCSVN_svnOK_f)
+
+C_TEXT($externalDataFolderPath_t)
+C_LONGINT($error_l)
+C_BOOLEAN($svnVersionOK_f)
+
+If (<>VCSVN_Enabled_f=False)
+
+UTIL_ERR_Startup 
+
+<>VCSVN_ComponentName_t:=UTIL_FILE_GetDatabaseName 
+
+$svnVersionOK_f:=VCSVN_CONFIG_HandleSVNPath 
+
+If ($svnVersionOK_f)
+<>VCSVN_svnOK_f:=True
+
+// Automatically "add" vc_data if it's not already versioned.
+// It must already exist if VC_Framework is running.
+$externalDataFolderPath_t:=Get 4D folder(Database Folder ;*)+"vc_data"
+
+$error_l:=VCSVN_UTIL_CreateFolders ($externalDataFolderPath_t)
+
+If ($error_l=0)
+<>VCSVN_Enabled_f:=True
+End if 
+
+End if 
+
+End if 

@@ -1,0 +1,92 @@
+﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+// --[HEADERSTART]-------------------------------------
+// User name (OS): Joshua Fletcher
+// Date and time: 10/17/12, 11:38:12
+// ----------------------------------------------------
+// Description:
+//   Any time a folder is created by VC_Framework, it
+//   needs to be added to SVN. "vc_source" is a great
+//   example because this folder is created before any
+//   VC_SVN code is able to execute so, the first time
+//   a method is about to be saved, "vc_source" needs to
+//   be added before the method can be saved.
+//
+//   So essentially this method is a wrapper for CREATE
+//   FOLDER to make sure each created folder is also
+//   added to SVN.
+//
+//   It does so by looping *up* the path to find the
+//   lowest folder that is already under revision
+//   control, then it adds the child.
+//
+//   NOTE: svn is recursive when adding folders so I
+//   only need to add the first child that's not under
+//   RC.
+// --[HEADEREND]---------------------------------------
+C_TEXT($1;$folderPath_t)
+
+C_LONGINT($0;$error_l)
+
+C_TEXT($folderPath_t;$action_t;$folderToAdd_t;$output_t)
+C_BOOLEAN($done_f)
+
+$folderPath_t:=$1
+
+// This method requires 'svn' so make sure it's installed.
+If (<>VCSVN_svnOK_f)
+
+If (Test path name($folderPath_t)#Is a folder )
+// Though I could create the folders recursively, there's
+// really no need.  I will check each one with 'svn info'
+// anyway so I might as well create them all now.
+CREATE FOLDER($folderPath_t;*)
+End if 
+
+// Need to delete the trailing separator for
+// 'svn' commands, they don't like it.
+If ($folderPath_t[[Length($folderPath_t)]]=Folder separator )
+$folderPath_t:=Substring($folderPath_t;1;Length($folderPath_t)-1)
+End if 
+
+// Assume there is nothing to add at first.
+$folderToAdd_t:=""
+
+While (Not($done_f))
+
+// Check to see if the current folder is in SVN.
+$action_t:="info"
+$output_t:=VCSVN_UTIL_ExecSVNCommand ($action_t;$folderPath_t)
+
+$error_l:=VCSVN_UTIL_CheckError ($action_t;$output_t)
+
+If ($error_l#0)
+// This folder is not under RC, preserve the current location.
+$folderToAdd_t:=$folderPath_t
+// Go up until we find a folder that *is* in SVN.
+$folderPath_t:=UTIL_FILE_GetParent ($folderPath_t)
+// UTIL_FILE_GetParent always leaves a trailing separator
+// if the path is a folder (this is consistent with 4D
+// commands).
+$folderPath_t:=Substring($folderPath_t;1;Length($folderPath_t)-1)
+Else 
+// We found a folder that *is* under RC.
+$done_f:=True
+
+// Check to see if we had something *not* under RC.
+If ($folderToAdd_t#"")
+// Add it.
+$action_t:="add"
+$output_t:=VCSVN_UTIL_ExecSVNCommand ($action_t;$folderToAdd_t)
+
+$error_l:=VCSVN_UTIL_CheckError ($action_t;$output_t)
+End if 
+End if 
+
+End while 
+
+Else 
+UTIL_ERR_ErrorMethod_t:=Current method name
+$error_l:=<>ERR_VCSVN_NotEnabled_l
+End if 
+
+$0:=$error_l

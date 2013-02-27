@@ -1,0 +1,10 @@
+﻿//%attributes = {"lang":"en"} comment added and reserved by 4D.
+C_LONGINT($formEvent_l)
+
+$formEvent_l:=Form event
+
+Case of 
+: ($formEvent_l=On Clicked )
+VCSVN_CONFIG_Cancelled_f:=True
+CANCEL
+End case 

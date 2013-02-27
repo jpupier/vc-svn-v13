@@ -1,0 +1,27 @@
+﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+// --[HEADERSTART]-------------------------------------
+// User name (OS): Joshua Fletcher
+// Date and time: 10/11/12, 12:02:41
+// ----------------------------------------------------
+// Description:
+//   Build requires MISC I plug-in, check to see if
+//   it's installed.
+// --[HEADEREND]---------------------------------------
+C_BOOLEAN($0;$isMiscIInstalled_f)
+
+C_TEXT($MiscI_t)
+
+ARRAY LONGINT($pluginNums_al;0)
+ARRAY TEXT($pluginNames_at;0)
+
+$MiscI_t:="MISC I"
+
+PLUGIN LIST($pluginNums_al;$pluginNames_at)
+
+If (Find in array($pluginNames_at;$MiscI_t)>-1)
+$isMiscIInstalled_f:=True
+Else 
+$isMiscIInstalled_f:=False
+End if 
+
+$0:=$isMiscIInstalled_f

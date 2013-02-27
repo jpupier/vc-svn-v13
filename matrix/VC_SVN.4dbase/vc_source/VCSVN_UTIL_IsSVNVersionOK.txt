@@ -1,0 +1,18 @@
+﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+C_TEXT($1;$pathToSVN_t)
+
+C_BOOLEAN($0;$svnVersionOK_f)
+
+C_BOOLEAN($svnInstalled_f)
+
+$pathToSVN_t:=$1
+
+// Validate the version of SVN to use.
+$svnInstalled_f:=VCSVN_UTIL_IsSVNInstalled ($pathToSVN_t)
+
+If ($svnInstalled_f)
+<>VCSVN_PathToSVN_t:=$pathToSVN_t
+$svnVersionOK_f:=VCSVN_UTIL_CheckSVNVersion ("1.7")
+End if 
+
+$0:=$svnVersionOK_f

@@ -1,0 +1,41 @@
+﻿//%attributes = {"lang":"en","invisible":true,"shared":true} comment added and reserved by 4D.
+// --[HEADERSTART]-------------------------------------
+// User name (OS): Joshua Fletcher
+// Date and time: 10/15/12, 18:04:17
+// ----------------------------------------------------
+// Description:
+//   Handle "delete" event from VC_Framework component.
+//
+//   This means VC_Framework detected a deleted method
+//   and wants to delete the exported file.
+// --[HEADEREND]---------------------------------------
+C_TEXT($1;$filePath_t)
+
+C_BOOLEAN($0;$actionOk_f)
+
+C_TEXT($action_t;$output_t)
+C_LONGINT($error_l)
+
+$filePath_t:=$1
+
+VCSVN_Startup 
+
+If (<>VCSVN_Enabled_f)
+// My implementation is simple enough I don't care if local
+// changes might be lost, so I force the delete even if the
+// method has been modified.
+$action_t:="delete --force"
+
+$output_t:=VCSVN_UTIL_ExecSVNCommand ($action_t;$filePath_t)
+$error_l:=VCSVN_UTIL_CheckError ($action_t;$output_t)
+Else 
+$error_l:=<>ERR_VCSVN_NotEnabled_l
+End if 
+
+If ($error_l=0)
+$actionOk_f:=True
+Else 
+UTIL_ERR_HandleError ($error_l;<>VCSVN_ComponentName_t;Current method name)
+End if 
+
+$0:=$actionOk_f

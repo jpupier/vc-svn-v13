@@ -1,0 +1,71 @@
+﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+C_TEXT($1;$programToFind_t)
+
+C_BOOLEAN($0;$programExists_f)
+
+C_TEXT($command_t;$message_t;$pattern_t;$scriptContents_t;$scriptName_t)
+C_BLOB($scriptFile_b)
+
+C_BLOB($inputStream_b;$outputStream_b;$errorStream_b)
+C_TEXT($inputStream_t;$outputStream_t;$errorStream_t)
+
+$programToFind_t:=$1
+
+// Assume not installed.
+$programExists_f:=False
+
+If (UTIL_IsMac )
+// This is a giant PITA on OS X...
+
+$message_t:="I require "+$programToFind_t+" but it's not installed."
+$pattern_t:="@"+$message_t+"@"
+
+// 'command' is recommended over 'which' because of inconsistent implementations.
+$command_t:="command -v "+$programToFind_t+" >/dev/null 2>&1 || { echo >&2 \""+$message_t+"\"; }"
+
+// Need to run this from a batch file, can't get it to work as a raw command line.
+$scriptContents_t:=$command_t
+$scriptName_t:="findapp.sh"
+
+// Need to use the shell (sh) to execute the script file, LEP won't do it for me.
+$command_t:="sh -c ./"+$scriptName_t
+
+// Create the script file...
+CONVERT FROM TEXT($scriptContents_t;"UTF-8";$scriptFile_b)
+BLOB TO DOCUMENT($scriptName_t;$scriptFile_b)
+
+// Need to make the script executable...
+SET ENVIRONMENT VARIABLE("_4D_OPTION_HIDE_CONSOLE";"true")
+SET ENVIRONMENT VARIABLE("_4D_OPTION_CURRENT_DIRECTORY";Get 4D folder(Database Folder ))
+LAUNCH EXTERNAL PROCESS("chmod u+x ./"+$scriptName_t;$inputStream_t;$outputStream_t;$errorStream_t)
+
+// Finally set the current directory again for the next LEP call.
+SET ENVIRONMENT VARIABLE("_4D_OPTION_CURRENT_DIRECTORY";Get 4D folder(Database Folder ))
+Else 
+$pattern_t:="@Could not find files for the given pattern@"
+$command_t:="where "+$programToFind_t
+End if 
+
+SET ENVIRONMENT VARIABLE("_4D_OPTION_HIDE_CONSOLE";"true")
+LAUNCH EXTERNAL PROCESS($command_t;$inputStream_b;$outputStream_b;$errorStream_b)
+
+If (UTIL_IsMac )
+DELETE DOCUMENT($scriptName_t)
+End if 
+
+$inputStream_t:=Convert to text($inputStream_b;"UTF-8")
+$outputStream_t:=Convert to text($outputStream_b;"UTF-8")
+$errorStream_t:=Convert to text($errorStream_b;"UTF-8")
+
+If (UTIL_IsMac )
+If ($errorStream_t#$pattern_t)
+$programExists_f:=True
+End if 
+Else 
+If ($errorStream_t#$pattern_t)
+$programExists_f:=True
+End if 
+End if 
+
+
+$0:=$programExists_f

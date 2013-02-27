@@ -1,0 +1,18 @@
+﻿//%attributes = {"lang":"en"} comment added and reserved by 4D.
+C_LONGINT($formEvent_l)
+
+$formEvent_l:=Form event
+
+Case of 
+: ($formEvent_l=On Data Change )
+// Validate the version of SVN to use.
+VCSVN_CONFIG_svnVersionOK_f:=VCSVN_UTIL_IsSVNVersionOK (VCSVN_PathToSVN_t)
+
+If (VCSVN_CONFIG_svnVersionOK_f)
+ACCEPT
+Else 
+VCSVN_CONFIG_Messsage_t:="SVN 1.7+ is required."
+OBJECT SET VISIBLE(VCSVN_CONFIG_Messsage_t;True)
+End if 
+
+End case 
