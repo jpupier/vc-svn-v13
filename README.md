@@ -18,16 +18,16 @@ Along with VC_Framework, The VC_SVN component facilitates automatic export of al
 
 ## Contents
 
-* The [components](https://github.com/4D/VC_SVN/tree/master/components) folder contains the interpreted component suitable for installation in any [4D v13](http://www.4d.com/products/4dv13.html) database.
+* The [components](https://github.com/4D/VC_SVN/tree/master/components) folder contains the "VC_SVN.4dbase" component suitable for installation in any [4D v13](http://www.4d.com/products/4dv13.html) database.
 * The [matrix](https://github.com/4D/VC_SVN/tree/master/matrix) folder contains the component source code.
-* The [doc](https://github.com/4D/VC_SVN/tree/master/doc) folder contains documentation about the component.
+* The [doc](https://github.com/4D/VC_SVN/tree/master/doc) may contain documentation about the component...or I may use the Wiki...haven't decided yet :)
 
 ## Usage
 
-Install both [VC_Framework](https://github.com/4D/VC_Framework) and VC_GitHub in a 4D database Components folder. Open any method.
+Install both [VC_Framework](https://github.com/4D/VC_Framework) and "VC_SVN.4dbase" in a 4D database Components folder. Launch the host database in 4D. Open any method if one is not open.
 
-If you modify the matrix database, you should build a new component.  To build a new component, execute the VC_BLD_Build method from the matrix database.
+*IMPORTANT NOTE:* [VC_Framework](https://github.com/4D/VC_Framework) is REQUIRED, VC_SVN does nothing without it.
 
-## Known Issues
+*IMPORTANT NOTE:* svn command line tools must be installed and on the system path.
 
-20120816 - Non-unique form object Object Names will cause [METHOD GET CODE](http://doc.4d.com/4Dv13.1/help/Command/en/page2591.html) to fail with the error -9768, "Invalid object path: {path}". 4D does not allow non-unique Object Names in a given form, but this issue can occur via conversion from older versions. The solution is to make all of the Object Names unique ([this can be automated](http://kb.4d.com/assetid=76640)). VC_SVN should take this into account but I'm not sure how yet. Right now this errror disables the export, which is not good. But I don't want to ignore -9768 either because it is a legitimate error. I have filed [a feature request](http://forums.4d.fr/Post/EN/11108706/1/11108707) for a unique error code in this situation.
+If you modify the matrix database, you should build a new component.  To build a new component, execute the VC_BLD_Build method from the matrix database (the matrix database uses the ["BLD.4dbase" component](https://github.com/4D/interpreted-build).
