@@ -18,7 +18,7 @@ Along with VC_Framework, The VC_SVN component facilitates automatic export of al
 
 ## Contents
 
-* The [components](https://github.com/4D/vc-svn/tree/master/components) folder contains the "VC_SVN.4dbase" component suitable for installation in any [4D v13](http://www.4d.com/products/4dv13.html) database.
+* The [components](https://github.com/4D/vc-svn/tree/master/Components) folder contains the "VC_SVN.4dbase" component suitable for installation in any [4D v13](http://www.4d.com/products/4dv13.html) database.
 * The [matrix](https://github.com/4D/vc-svn/tree/master/matrix) folder contains the component source code.
 * The [doc](https://github.com/4D/vc-svn/tree/master/doc) may contain documentation about the component...or I may use the Wiki...haven't decided yet :)
 
