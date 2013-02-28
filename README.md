@@ -2,7 +2,7 @@
 
 ## Description
 
-The VC_SVN component extends the [VC_Framework](https://github.com/4D/VC_Framework) component by implementing the necessary "devhook" methods in order to support the standard actions:
+The VC_SVN component extends the [VC_Framework](https://github.com/4D/vc-framework) component by implementing the necessary "devhook" methods in order to support the standard actions:
 
 * VC_DEVHOOK_Create
 * VC_DEVHOOK_Update
@@ -18,16 +18,16 @@ Along with VC_Framework, The VC_SVN component facilitates automatic export of al
 
 ## Contents
 
-* The [components](https://github.com/4D/VC_SVN/tree/master/components) folder contains the "VC_SVN.4dbase" component suitable for installation in any [4D v13](http://www.4d.com/products/4dv13.html) database.
-* The [matrix](https://github.com/4D/VC_SVN/tree/master/matrix) folder contains the component source code.
-* The [doc](https://github.com/4D/VC_SVN/tree/master/doc) may contain documentation about the component...or I may use the Wiki...haven't decided yet :)
+* The [components](https://github.com/4D/vc-svn/tree/master/components) folder contains the "VC_SVN.4dbase" component suitable for installation in any [4D v13](http://www.4d.com/products/4dv13.html) database.
+* The [matrix](https://github.com/4D/vc-svn/tree/master/matrix) folder contains the component source code.
+* The [doc](https://github.com/4D/vc-svn/tree/master/doc) may contain documentation about the component...or I may use the Wiki...haven't decided yet :)
 
 ## Usage
 
-Install both [VC_Framework](https://github.com/4D/VC_Framework) and "VC_SVN.4dbase" in a 4D database Components folder. Launch the host database in 4D. Open any method if one is not open.
+Install both [VC_Framework](https://github.com/4D/vc-framework) and "VC_SVN.4dbase" in a 4D database Components folder. Launch the host database in 4D. Open any method if one is not open.
 
-*IMPORTANT NOTE:* [VC_Framework](https://github.com/4D/VC_Framework) is REQUIRED, VC_SVN does nothing without it.
+*IMPORTANT NOTE:* [VC_Framework](https://github.com/4D/vc-framework) is REQUIRED, VC_SVN does nothing without it.
 
 *IMPORTANT NOTE:* svn command line tools must be installed and on the system path.
 
-If you modify the matrix database, you should build a new component.  To build a new component, execute the VC_BLD_Build method from the matrix database (the matrix database uses the ["BLD.4dbase" component](https://github.com/4D/interpreted-build).
+If you modify the matrix database, you should build a new component.  To build a new component, execute the VC_BLD_Build method from the matrix database (the matrix database uses the ["BLD.4dbase" component](https://github.com/4D/interpreted-build)).
