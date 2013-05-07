@@ -3,5 +3,6 @@
 /matrix/VC_SVN.4dbase/*.bat
 /matrix/VC_SVN.4dbase/Logs
 /matrix/VC_SVN.4dbase/Preferences
+/matrix/VC_SVN.4dbase/Resources/vc_svn_config.txt
 .DS_Store
 
