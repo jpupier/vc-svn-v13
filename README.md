@@ -12,9 +12,9 @@ In particular VC_SVN does the following:
 
 * VC_DEVHOOK_Create - execute "svn add" for the indicated method.
 * VC_DEVHOOK_Update - returns True
-* VC_DEVHOOK_Delete - execute "svn delete" for the inidcated methdo.
+* VC_DEVHOOK_Delete - execute "svn delete" for the inidcated methdod.
 
-Along with VC_Framework, The VC_SVN component facilitates automatic export of all methods in a [4D](http://www.4d.com) host database to text files on disk.  If the host database is under revision control with subversion, these text files are appropriately managed. The VC_SVN component is designed to have zero impact on the host database.  There is no startup code to install and nothing to configure. *IMPORTANT NOTE:* svn command line tools must be installed and on the system path.
+Along with VC_Framework, the VC_SVN component facilitates automatic export of all methods in a [4D](http://www.4d.com) host database to text files on disk.  If the host database is under revision control with subversion, these text files are appropriately managed. The VC_SVN component is designed to have zero impact on the host database.  There is no startup code to install and nothing to configure. *IMPORTANT NOTE:* svn command line tools must be installed. Placing the 'svn' executable on the system path is advised as well. SVN 1.7+ is *required*.
 
 ## Contents
 
@@ -28,6 +28,6 @@ Install both [VC_Framework](https://github.com/4D/vc-framework) and "VC_SVN.4dba
 
 *IMPORTANT NOTE:* [VC_Framework](https://github.com/4D/vc-framework) is REQUIRED, VC_SVN does nothing without it.
 
-*IMPORTANT NOTE:* svn command line tools must be installed and on the system path.
+*IMPORTANT NOTE:* svn command line tools must be installed. Placing the 'svn' executable on the system path is advised as well. SVN 1.7+ is *required*.
 
 If you modify the matrix database, you should build a new component.  To build a new component, execute the VC_BLD_Build method from the matrix database (the matrix database uses the ["BLD.4dbase" component](https://github.com/4D/interpreted-build)).
