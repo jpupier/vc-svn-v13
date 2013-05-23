@@ -1,4 +1,5 @@
-Current Version: 6862
+Component Version: 6962
+4D Version: 13
 
 This file represents the version number of the component.
 
