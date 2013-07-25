@@ -29,4 +29,6 @@ Install both [VC_Framework](https://github.com/4D/vc-framework) and "VC_SVN.4dba
 
 *IMPORTANT NOTE:* svn command line tools must be installed. Placing the 'svn' executable on the system path is advised as well. SVN 1.7+ is *required*.
 
+*IMPORTANT NOTE:* you must install the components in the Components folder, aliases are not supported.
+
 If you modify the matrix database, you should build a new component.  To build a new component, execute the VC_BLD_Build method from the matrix database (the matrix database uses the ["BLD.4dbase" component](https://github.com/4D/interpreted-build)).
