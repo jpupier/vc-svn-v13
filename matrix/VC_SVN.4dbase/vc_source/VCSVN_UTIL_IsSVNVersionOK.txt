@@ -1,4 +1,13 @@
 ﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+// --[HEADERSTART]-------------------------------------
+// User name (OS): Joshua Fletcher
+// Date and time: 08/02/13, 15:50:19
+// ----------------------------------------------------
+// Description:
+//   Check to see if svn command line tools are
+//   installed and of sufficient version.
+//
+// --[HEADEREND]---------------------------------------
 C_TEXT($1;$pathToSVN_t)
 
 C_BOOLEAN($0;$svnVersionOK_f)
@@ -12,7 +21,7 @@ $svnInstalled_f:=VCSVN_UTIL_IsSVNInstalled ($pathToSVN_t)
 
 If ($svnInstalled_f)
 <>VCSVN_PathToSVN_t:=$pathToSVN_t
-$svnVersionOK_f:=VCSVN_UTIL_CheckSVNVersion ("1.7")
+$svnVersionOK_f:=VCSVN_UTIL_CheckSVNVersion (1.7)
 End if 
 
 $0:=$svnVersionOK_f

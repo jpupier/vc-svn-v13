@@ -1,4 +1,14 @@
 ﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
+// --[HEADERSTART]-------------------------------------
+// User name (OS): Joshua Fletcher
+// Date and time: 08/02/13, 15:40:21
+// ----------------------------------------------------
+// Description:
+//   Utility method to check and see if a program is
+//   installed via the command line.
+//
+//   Works on OS X and Windows.
+// --[HEADEREND]---------------------------------------
 C_TEXT($1;$programToFind_t)
 
 C_BOOLEAN($0;$programExists_f)

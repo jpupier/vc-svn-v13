@@ -1,22 +1,39 @@
 ﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
-C_TEXT($1;$requiredVersion_t)
+// --[HEADERSTART]-------------------------------------
+// User name (OS): Joshua Fletcher
+// Date and time: 08/02/13, 11:27:40
+// ----------------------------------------------------
+// Description:
+//   Compare installed SVN version to specified version.
+//
+//   If the installed version is the same or newer it
+//   is considered "ok".
+//
+//   Note: this method checks for errors but does NOT
+//   handle them...mainly it doesn't validate that svn
+//   is installed. You should use VCSVN_UTIL_IsSVNInstalled
+//   first.
+//
+// --[HEADEREND]---------------------------------------
+C_REAL($1;$requiredVersion_r)
 
 C_BOOLEAN($0;$versionOK_t)
 
 C_TEXT($action_t;$output_t)
 C_LONGINT($error_l)
+C_REAL($actualVersion_r)
 
-$requiredVersion_t:=$1
+$requiredVersion_r:=$1
 
-$requiredVersion_t:="@"+$requiredVersion_t+"@"
-$action_t:="help"
+$action_t:="--version --quiet"
 
 $output_t:=VCSVN_UTIL_ExecSVNCommand ($action_t)
 
 $error_l:=VCSVN_UTIL_CheckError ($action_t;$output_t)
 
 If ($error_l=0)
-If ($output_t=$requiredVersion_t)
+$actualVersion_r:=Num($output_t)
+If ($actualVersion_r>=$requiredVersion_r)
 $versionOK_t:=True
 End if 
 End if 

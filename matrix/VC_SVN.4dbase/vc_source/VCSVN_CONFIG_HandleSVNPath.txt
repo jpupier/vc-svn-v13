@@ -1,5 +1,21 @@
 ﻿//%attributes = {"lang":"en","invisible":true} comment added and reserved by 4D.
-//   Moving to OS X I discovered how dismally difficult it is to ensure you have the right version of SVN installed.  I was forced to add a feature to ask the user for the path to 'svn' if necessary. Not wanting to bother the user more than necessary, I persist this in a file located in the host database. This way the component can be upgraded without losing the setting.
+// --[HEADERSTART]-------------------------------------
+// User name (OS): Joshua Fletcher
+// Date and time: 08/02/13, 15:42:16
+// ----------------------------------------------------
+// Description:
+//   Get and save the path to 'svn'.
+//
+//   Moving to OS X I discovered how dismally difficult
+//   it is to ensure you have the right version of SVN
+//   installed.  I was forced to add a feature to ask
+//   the user for the path to 'svn' if necessary. Not
+//   wanting to bother the user more than necessary, I
+//   persist this in a file located in the host database.
+//   This way the component can be upgraded without
+//   losing the setting.
+//
+// --[HEADEREND]---------------------------------------
 C_TEXT($pathToConfig_t;$pattern_t;$configFile_t)
 C_LONGINT($start_l;$pos_l;$length_l;$winRef_l)
 C_BLOB($configFile_b)
